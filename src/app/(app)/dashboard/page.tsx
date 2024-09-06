@@ -15,7 +15,7 @@ import { Separator } from "@/components/ui/separator";
 import { Loader2, RefreshCcw } from "lucide-react";
 import MessageCard from "@/components/MessageCard";
 
-const page = () => {
+const UserDashboard = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isSwitchLoading, setIsSwitchLoading] = useState(false);
@@ -187,4 +187,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default UserDashboard;
