@@ -26,7 +26,7 @@ import { Loader2 } from "lucide-react";
 import { signInSchema } from "@/schemas/signInSchema";
 import { signIn } from "next-auth/react";
 
-const page = () => {
+const SignInForm = () => {
   // const [isSubmitting, setIsSubmitting] = useState(false);
   // can implementing loading icon like sign-up button here in signin also
   const { toast } = useToast();
@@ -119,4 +119,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default SignInForm;

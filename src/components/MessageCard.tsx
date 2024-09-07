@@ -23,6 +23,7 @@ import { Message } from "@/model/User.model";
 import { useToast } from "@/hooks/use-toast";
 import axios from "axios";
 import { ApiResponse } from "@/types/ApiResponse";
+
 type MessageCardProps = {
   message: Message;
   onMessageDelete: (messageId: string) => void;
@@ -37,7 +38,7 @@ const MessageCard = ({ message, onMessageDelete }: MessageCardProps) => {
     toast({
       title: response.data.message,
     });
-    onMessageDelete(message._id);
+    onMessageDelete(message._id as string);
   };
   return (
     <Card>

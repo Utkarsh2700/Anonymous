@@ -53,10 +53,10 @@ const UserDashboard = () => {
     } finally {
       setIsSwitchLoading(false);
     }
-  }, [setValue]);
+  }, [setValue, toast]);
 
   const fetchMessages = useCallback(
-    async (refresh: boolean) => {
+    async (refresh: boolean = false) => {
       setIsLoading(true);
       setIsSwitchLoading(false);
       try {
@@ -79,16 +79,18 @@ const UserDashboard = () => {
         });
       } finally {
         setIsLoading(false);
+        setIsSwitchLoading(false);
       }
     },
-    [setIsLoading, setMessages]
+    [setIsLoading, setMessages, toast]
   );
 
+  // Fetching initial messages(state) from the server
   useEffect(() => {
     if (!session || !session.user) return;
-    fetchMessages(true);
+    fetchMessages();
     fetchAcceptMessage();
-  }, [session, setValue, fetchAcceptMessage, fetchMessages]);
+  }, [session, setValue, fetchAcceptMessage, fetchMessages, toast]);
 
   // handle switch change
 
@@ -106,7 +108,9 @@ const UserDashboard = () => {
       const axiosError = error as AxiosError<ApiResponse>;
       toast({
         title: "error",
-        description: "Failed to swich accepting message mode",
+        description:
+          axiosError.response?.data.message ||
+          "Failed to swich accepting message mode",
         variant: "destructive",
       });
     }
@@ -174,7 +178,7 @@ const UserDashboard = () => {
         {messages.length > 0 ? (
           messages.map((message, index) => (
             <MessageCard
-              key={message._id}
+              key={message._id as string}
               message={message}
               onMessageDelete={handleDeleteMessage}
             />
