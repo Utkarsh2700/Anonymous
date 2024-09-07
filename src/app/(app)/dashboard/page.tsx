@@ -73,8 +73,7 @@ const UserDashboard = () => {
         toast({
           title: "Error",
           description:
-            axiosError.response?.data.message ||
-            "Failed to fetch message settings",
+            axiosError.response?.data.message || "Failed to fetch messages",
           variant: "destructive",
         });
       } finally {
@@ -90,7 +89,7 @@ const UserDashboard = () => {
     if (!session || !session.user) return;
     fetchMessages();
     fetchAcceptMessage();
-  }, [session, setValue, fetchAcceptMessage, fetchMessages, toast]);
+  }, [session, setValue, fetchAcceptMessage, fetchMessages]);
 
   // handle switch change
 
@@ -99,7 +98,7 @@ const UserDashboard = () => {
       const response = await axios.post<ApiResponse>("/api/accept-messages", {
         acceptMessages: !acceptMessages,
       });
-      setValue("acceptMessage", !acceptMessages);
+      setValue("acceptMessages", !acceptMessages);
       toast({
         title: response.data.message,
         variant: "default",
@@ -116,7 +115,7 @@ const UserDashboard = () => {
     }
   };
 
-  const { username } = session?.user as User;
+  const { username } = session?.user;
   // TODO: do more Research
   const baseUrl = `${window.location.protocol}//${window.location.host}`;
   const profileUrl = `${baseUrl}/u/${username}`;
@@ -134,7 +133,7 @@ const UserDashboard = () => {
   }
 
   return (
-    <div className="my-8 mx-4 md:mx-8 lg:mx-auto p-6 bg-white rouded w-full max-w-6xl">
+    <div className="my-8 mx-4 md:mx-8 lg:mx-auto p-6 bg-white rounded w-full max-w-6xl">
       <h1 className="text-4xl font-bold mb-4">User Dashboard</h1>
       <div className="mb-4">
         <h2 className="text-lg font-semibold mb-2">Copy Your Unique Link</h2>
@@ -178,7 +177,7 @@ const UserDashboard = () => {
         {messages.length > 0 ? (
           messages.map((message, index) => (
             <MessageCard
-              key={message._id as string}
+              key={message._id}
               message={message}
               onMessageDelete={handleDeleteMessage}
             />

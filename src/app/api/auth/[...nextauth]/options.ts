@@ -46,8 +46,8 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
-        (token._id = user._id?.toString()),
-          (token.isVerified = user.isVerified);
+        token._id = user._id?.toString();
+        token.isVerified = user.isVerified;
         token.isAcceptingMessages = user.isAcceptingMessages;
         token.username = user.username;
       }
@@ -64,7 +64,7 @@ export const authOptions: NextAuthOptions = {
     },
   },
   pages: {
-    signIn: "api/sign-in",
+    signIn: "/sign-in",
   },
   session: {
     strategy: "jwt",

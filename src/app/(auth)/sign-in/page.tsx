@@ -42,24 +42,22 @@ const SignInForm = () => {
   });
 
   const onSubmit = async (data: z.infer<typeof signInSchema>) => {
-    try {
-      const result = await signIn("credentials", {
-        redirect: false,
-        identifier: data.identifier,
-        password: data.password,
+    const result = await signIn("credentials", {
+      redirect: false,
+      identifier: data.identifier,
+      password: data.password,
+    });
+    console.log("result from signin page =", result);
+    if (result?.error) {
+      toast({
+        title: "Login Failed",
+        description: result.error,
+        variant: "destructive",
       });
-      console.log("result from signin page =", result);
-      if (result?.error) {
-        toast({
-          title: "Login Failed",
-          description: result.error,
-          variant: "destructive",
-        });
-      }
-      if (result?.url) {
-        router.replace("/dashboard");
-      }
-    } catch (error) {}
+    }
+    if (result?.url) {
+      router.replace("/dashboard");
+    }
   };
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
@@ -78,9 +76,9 @@ const SignInForm = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Email/Username</FormLabel>
-                  <FormControl>
-                    <Input placeholder="Email/Username" {...field} />
-                  </FormControl>
+                  {/* <FormControl> */}
+                  <Input {...field} />
+                  {/* </FormControl> */}
 
                   <FormMessage />
                 </FormItem>
@@ -92,9 +90,9 @@ const SignInForm = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <Input type="password" placeholder="Password" {...field} />
-                  </FormControl>
+                  {/* <FormControl> */}
+                  <Input type="password" {...field} />
+                  {/* </FormControl> */}
 
                   <FormMessage />
                 </FormItem>
@@ -104,15 +102,10 @@ const SignInForm = () => {
           </form>
         </Form>
         <div className="text-center mt-4">
-          <p>
-            Already a member?
-            <Link
-              href={"/sign-in"}
-              className="text-blue-600 hover:text-blue-800"
-            >
-              Sign in
-            </Link>
-          </p>
+          <p>Already a member?</p>
+          <Link href={"/sign-in"} className="text-blue-600 hover:text-blue-800">
+            Sign in
+          </Link>
         </div>
       </div>
     </div>

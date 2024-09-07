@@ -177,15 +177,10 @@ const SignUpForm = () => {
           </form>
         </Form>
         <div className="text-center mt-4">
-          <p>
-            Already a member?
-            <Link
-              href={"/sign-in"}
-              className="text-blue-600 hover:text-blue-800"
-            >
-              Sign in
-            </Link>
-          </p>
+          <p>Already a member?</p>
+          <Link href={"/sign-in"} className="text-blue-600 hover:text-blue-800">
+            Sign in
+          </Link>
         </div>
       </div>
     </div>

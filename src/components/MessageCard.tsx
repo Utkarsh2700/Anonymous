@@ -38,7 +38,7 @@ const MessageCard = ({ message, onMessageDelete }: MessageCardProps) => {
     toast({
       title: response.data.message,
     });
-    onMessageDelete(message._id as string);
+    onMessageDelete(message._id);
   };
   return (
     <Card>
